@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
             gyroscopeTextView.setText(gyroscopeValues);
             if(x > 0.5f) { // anticlockwise
                 getWindow().getDecorView().setBackgroundColor(Color.BLUE);
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);
             } else if(x < -0.5f) { // clockwise
                 getWindow().getDecorView().setBackgroundColor(Color.YELLOW);
             }else if(x == 0.0f){
