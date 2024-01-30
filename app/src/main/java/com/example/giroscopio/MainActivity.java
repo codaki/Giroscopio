@@ -9,8 +9,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
@@ -45,29 +47,22 @@ public class MainActivity extends AppCompatActivity {
             float y = event.values[1];
             float z = event.values[2];
 
-            String gyroscopeValues = String.format("Gyroscope Values: %.2f - %.2f - %.2f", x, y, z);
-            TextView gyroscopeTextView = findViewById(R.id.gyroscopeValues);
-            gyroscopeTextView.setText(gyroscopeValues);
-            if(x > 0.5f) { // anticlockwise
-                getWindow().getDecorView().setBackgroundColor(Color.BLUE);
-            } else if(x < -0.5f) { // clockwise
-                getWindow().getDecorView().setBackgroundColor(Color.YELLOW);
-            }else if(x == 0.0f){
-                getWindow().getDecorView().setBackgroundColor(Color.WHITE);
-            }else if(y > 0.5f) { // anticlockwise
-                getWindow().getDecorView().setBackgroundColor(Color.RED);
-            } else if(y < -0.5f) { // clockwise
-                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-            }else if(y == 0.0f){
-                getWindow().getDecorView().setBackgroundColor(Color.WHITE);
-            }else if(z > 0.5f) { // anticlockwise
-                getWindow().getDecorView().setBackgroundColor(Color.BLACK);
-            } else if(z < -0.5f) { // clockwise
-                getWindow().getDecorView().setBackgroundColor(Color.GRAY);
-            }else if(z == 0.0f){
-                getWindow().getDecorView().setBackgroundColor(Color.WHITE);
-            }
+            // Your existing code for updating UI based on gyroscope values
 
+            // Open different apps based on gyroscope values
+            if (x > 0.5f) {
+                openCalculator();
+            } else if (x < -0.5f) {
+                openCalendar();
+            } else if (y > 0.5f) {
+                openCamera();
+            } else if (y < -0.5f) {
+                openBrowser();
+            } else if (z > 0.5f) {
+                openSettings();
+            } else if (z < -0.5f) {
+                openSpotify();
+            }
         }
 
         @Override
@@ -75,4 +70,39 @@ public class MainActivity extends AppCompatActivity {
             // Handle accuracy changes if needed
         }
     };
+
+    private void openCalculator() {
+        Intent intent =  new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivity(intent);
+    }
+
+    private void openCalendar() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_APP_CALENDAR);
+        startActivity(intent);
+    }
+
+    private void openCamera() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://chat.openai.com"));
+        startActivity(intent);
+    }
+
+    private void openBrowser() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+        startActivity(intent);
+    }
+
+    private void openSettings() {
+        Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+        startActivity(intent);
+    }
+
+    private void openSpotify() {
+        String number = "+593978960525";
+        String url = "https://api.whatsapp.com/send?phone="+number;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
 }
