@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,12 +27,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Camera extends AppCompatActivity {
     public static final int GALLERY_REQUEST_CODE = 105;
     public static final int CAM_PERM_CODE = 101;
     public static final int CAM_REQUEST_CODE = 102;
-    ImageView imageView;
-    Button camera, galeria;
+    CircleImageView imageView;
+    ImageButton camera, galeria;
     String currentPhotoPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
